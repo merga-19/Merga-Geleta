@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merga Geleta | Frontend Developer</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <style>
+        /* Basic reset and smooth scrolling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+
+        section {
+            padding: 80px 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #222;
+        }
+
+        /* Horizontal Scroll */
+        .horizontal-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 30px;
+            padding: 20px 0;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .horizontal-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .horizontal-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .horizontal-scroll::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        /* Gallery Images */
+        .gallery-img {
+            flex: 0 0 300px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            scroll-snap-align: start;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .gallery-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Portfolio Cards */
+        .portfolio-card {
+            flex: 0 0 340px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            scroll-snap-align: start;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .portfolio-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .portfolio-card h3 {
+            font-size: 1.35rem;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .portfolio-card p {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .portfolio-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .portfolio-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Social Icons Styling */
+        .social a {
+            color: inherit;
+            font-size: 1.8rem;
+            margin: 0 12px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social a:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Contact section specific */
+        #contact .social a {
+            font-size: 2.2rem;
+            color: white;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn.active,
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        /* Resume Section Styling */
+        .resume-section {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .resume-section h3 {
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+            color: #222;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+        }
+
+        .resume-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .resume-section li {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .resume-section li::before {
+            content: "▹";
+            color: #007bff;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .resume-section p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header & Hero Section -->
+    <div class="hero-header" id="home">
+        <div class="wrapper">
+            <header>
+                <div class="logo">
+                    <i class="fa-solid fa-a"></i>
+                    <div class="logo-text">Merga Geleta</div>
+                </div>
+                <nav>
+                    <div class="togglebtn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <ul class="navlinks">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#resume">Resume</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </header>
+
+            <div class="container hero-content">
+                <div class="hero-pic">
+                    <img src="images/my-photo.jpg" alt="Merga Geleta profile picture">
+                </div>
+                <div class="hero-text">
+                    <h5>Hi, I'm a <span class="input">Frontend Developer</span></h5>
+                    <h1>Merga Geleta</h1>
+                    <p>
+                        Passionate frontend developer specializing in creating beautiful, responsive, and user-friendly
+                        websites using modern technologies like HTML, CSS, JavaScript, and React.
+                    </p>
+
+                    <div class="btn-group">
+                        <a href="resume/Merga_Geleta_Resume.pdf" class="btn active"
+                            download="Merga_Geleta_Resume.pdf">Download CV</a>
+                        <a href="#contact" class="btn">Contact Me</a>
+                    </div>
+
+                    <!-- Social Media Icons (Hero Section) -->
+                    <div class="social">
+                        <a href="https://t.me/Me_Ge_19" target="_blank" title="Telegram">
+                            <i class="fa-brands fa-telegram"></i>
+                        </a>
+                        <a href="https://imo.im/" target="_blank" title="Imo - Download App to Chat">
+                            <i class="fa-brands fa-comment-dots"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@m2322267" target="_blank" title="TikTok">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="https://www.facebook.com/your_facebook_username" target="_blank" title="Facebook">
+                            <i class="fa-brands fa-facebook"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/your_linkedin_profile" target="_blank" title="LinkedIn">
+                            <i class="fa-brands fa-linkedin"></i>
+                        </a>
+                        <a href="https://www.instagram.com/your_instagram_username" target="_blank" title="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <p style="font-size: 1.2rem; margin-bottom: 30px;">
+                    My Name Is Merga Geleta. I am studying Information Technology at Arsi University.
+                </p>
+                <p>
+                    I'm a creative and detail-oriented frontend developer with experience building responsive and
+                    performant web applications.
+                </p>
+                <p>
+                    I love turning ideas into reality through clean code and beautiful design. When I'm not coding,
+                    you'll find me exploring new design trends or learning the latest frameworks.
+                </p>
+                <br>
+                <p><strong>Skills:</strong> HTML5, CSS3, JavaScript (ES6+), React, Git,
+                    Responsive Design, UI/UX Principles, PHP, MySQL, Mobile Application, Networking,
+                    Maintenance and Technical Support</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" style="background: #f9f9f9;">
+        <div class="container">
+            <h2>Portfolio</h2>
+            <div class="horizontal-scroll">
+                <div class="portfolio-card">
+                    <img src="images/my-photo.jpg" alt="E-Commerce Platform">
+                    <div class="portfolio-content">
+                        <div>
+                            <h3>E-Commerce Platform</h3>
+                            <p>A modern full-stack shopping site built with React and Node.js.</p>
+                        </div>
+                        <a href="#" class="portfolio-link">View Project →</a>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <img src="images/GC.png" alt="Task Management App">
+                    <div class="portfolio-content">
+                        <div>
+                            <h3>Task Management App</h3>
+                            <p>Progressive web app with offline support using Vue.js.</p>
+                        </div>
+                        <a href="#" class="portfolio-link">View Project →</a>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <img src="images/mg.jpg" alt="Personal Portfolio">
+                    <div class="portfolio-content">
+                        <div>
+                            <h3>Personal Portfolio</h3>
+                            <p>Fully responsive animated portfolio website (this site!).</p>
+                        </div>
+                        <a href="#" class="portfolio-link">View Project →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery">
+        <div class="container">
+            <h2>Gallery</h2>
+            <div class="horizontal-scroll">
+                <img src="images/mmm.jpg" alt="Gallery 1" class="gallery-img">
+                <img src="images/19.jpg" alt="Gallery 2" class="gallery-img">
+                <img src="images/21.jpg" alt="Gallery 3" class="gallery-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Section - Fully Updated with Your Real Info -->
+    <section id="resume" style="background: #f9f9f9;">
+        <div class="container">
+            <h2>Resume</h2>
+
+            <!-- Download Button -->
+            <div style="text-align: center; margin-bottom: 60px;">
+                <a href="resume/Merga_Geleta_Resume.pdf" class="btn active" download="Merga_Geleta_Resume.pdf">
+                    Download Full Resume (PDF)
+                </a>
+            </div>
+
+            <!-- Resume Content -->
+            <div class="resume-section">
+                <h3>Personal Information</h3>
+                <ul>
+                    <li><strong>Full Name:</strong> Merga Geleta Negewo</li>
+                    <li><strong>Phone:</strong> +251 919 707 507</li>
+                    <li><strong>Email:</strong> mergageleta9@gmail.com</li>
+                    <li><strong>Address:</strong> Ethiopia</li>
+                </ul>
+
+                <h3>Career Objective</h3>
+                <p>
+                    I am an IT graduate seeking an entry-level position in an organization where I can apply my
+                    knowledge in networking, cybersecurity, software development, and technical support, and grow
+                    professionally while contributing to the organization’s goals.
+                </p>
+
+                <h3>Education</h3>
+                <ul>
+                    <li><strong>Bachelor of Science in Information Technology</strong><br>
+                        Arsi University<br>
+                        Expected Graduation: 2026
+                    </li>
+                </ul>
+
+                <h3>Technical Skills</h3>
+                <ul>
+                    <li>Programming: HTML, CSS, Java, PHP, MySQL</li>
+                    <li>Networking: Basic networking, IP addressing, OSI model</li>
+                    <li>Cybersecurity: Basic security concepts</li>
+                    <li>Tools: Android Studio, NetBeans, GitHub</li>
+                    <li>Operating Systems: Windows, Windows Server</li>
+                </ul>
+
+                <h3>Academic / Personal Projects</h3>
+                <ul>
+                    <li>Student Registration System using MySQL and Java</li>
+                    <li>Personal Website using HTML and CSS</li>
+                    <li>Android App (App Launcher Project)</li>
+                    <li>Networking Lab Simulations</li>
+                </ul>
+
+                <h3>Certifications / Training</h3>
+                <ul>
+                    <li>Networking Fundamentals (Online Course)</li>
+                    <li>Cybersecurity Basics (Online Training)</li>
+                </ul>
+
+                <h3>Languages</h3>
+                <ul>
+                    <li>English – Good</li>
+                    <li>Amharic – Good</li>
+                    <li>Oromo – Native</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog">
+        <div class="container">
+            <h2>Blog</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <div
+                    style="background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <h3>10 Tips for Better React Performance</h3>
+                    <p><small>Published: January 2026</small></p>
+                    <p>Learn key optimization techniques...</p>
+                    <a href="#" style="color: #007bff;">Read more →</a>
+                </div>
+                <div
+                    style="background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <h3>CSS Grid vs Flexbox in 2026</h3>
+                    <p><small>Published: December 2025</small></p>
+                    <p>When to use which layout system...</p>
+                    <a href="#" style="color: #007bff;">Read more →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" style="background: #222; color: #fff;">
+        <div class="container">
+            <h2>Contact Me</h2>
+            <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+                <p style="margin-bottom: 40px; font-size: 1.1rem;">
+                    Feel free to reach out for collaborations, freelance work, or just a friendly hello!
+                </p>
+                <p style="margin: 15px 0; font-size: 1.2rem;">
+                    <strong>Email:</strong>
+                    <a href="mailto:mergageleta9@gmail.com" style="color: #4da6ff; text-decoration: none;">
+                        mergageleta9@gmail.com
+                    </a>
+                </p>
+                <p style="margin: 15px 0; font-size: 1.2rem;">
+                    <strong>Phone:</strong>
+                    <a href="tel:+251919707507" style="color: #4da6ff; text-decoration: none;">
+                        +251 919 707 507
+                    </a>
+                </p>
+
+                <!-- Social Media (Contact Section) -->
+                <div class="social"
+                    style="margin-top: 40px; display: flex; justify-content: center; gap: 25px; flex-wrap: wrap;">
+                    <a href="https://t.me/Me_Ge_19" target="_blank" title="Telegram">
+                        <i class="fa-brands fa-telegram"></i>
+                    </a>
+                    <a href="https://imo.im/" target="_blank" title="Imo - Download App to Chat">
+                        <i class="fa-brands fa-comment-dots"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@m2322267" target="_blank" title="TikTok">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="https://www.facebook.com/your_facebook_username" target="_blank" title="Facebook">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/your_linkedin_profile" target="_blank" title="LinkedIn">
+                        <i class="fa-brands fa-linkedin"></i>
+                    </a>
+                    <a href="https://www.instagram.com/your_instagram_username" target="_blank" title="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Typed.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+    <script>
+        const togglebtn = document.querySelector(".togglebtn");
+        const nav = document.querySelector(".navlinks");
+
+        togglebtn.addEventListener("click", function () {
+            this.classList.toggle("click");
+            nav.classList.toggle("open");
+        });
+
+        document.querySelectorAll(".navlinks a").forEach(link => {
+            link.addEventListener("click", () => {
+                togglebtn.classList.remove("click");
+                nav.classList.remove("open");
+            });
+        });
+
+        var typed = new Typed(".input", {
+            strings: ["Frontend Developer", "Information Technology Student", "4th Year Student", "at ARSI UNIVERSITY"],
+            typeSpeed: 70,
+            backSpeed: 55,
+            loop: true
+        });
+    </script>
+</body>
+
+</html>
